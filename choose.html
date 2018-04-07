@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS单选,多选,全选</title>
+</head>
+<style>
+    table {
+        border-collapse: collapse;
+        padding: 5px 10px;
+    }
+
+    table td,
+    th {
+        padding: 5px 10px;
+    }
+</style>
+
+<body>
+    <table border=1>
+        <thead>
+            <th>
+                <input id='chexkAll' type="checkbox" onClick="checkAll()">全选
+            </th>
+            <th>学号</th>
+            <th>姓名</th>
+        </thead>
+        <tbody id="t1">
+
+        </tbody>
+    </table>
+</body>
+<script>
+    let arr1 = [{
+            id: '012520',
+            name: '张三'
+        },
+        {
+            id: '012521',
+            name: '李四'
+        },
+        {
+            id: '012522',
+            name: '王二'
+        },
+        {
+            id: '012523' ,
+            name: '赵六'
+        },
+        {
+            id: '012524',
+            name: 'tom'
+        },
+    ];
+    let arr2 = [];
+    let str = '';
+    arr1.forEach((item, i) => {
+        str +=
+            `
+            <tr>
+               <td>
+                    <input type="checkbox" id="${item.id}" onClick="seletStudent('${item.id}')">
+               </td>
+               <td>
+                    ${item.id}
+               </td>
+               <td>
+                    ${item.name}
+               </td>
+            </tr>
+        `
+
+    });
+    document.getElementById('t1').innerHTML = str;
+
+    function seletStudent(id) {
+        let chc = document.getElementById(id).checked;
+        if (chc) {
+            arr2.push(id);
+
+        } else {
+            let index = arr2.indexOf(id);
+            arr2.splice(index, 1);
+        }
+    }
+
+    function checkAll() {
+        arr2=[];
+        let ca = document.getElementById('chexkAll').checked;
+        let tbody = document.getElementsByTagName('tbody');
+        let chbs = tbody[0].querySelectorAll('input');
+        chbs.forEach(item => {
+            if(ca){
+                item.checked=true;
+                arr2.push(item.attributes.id.nodeValue);
+            }else{
+                item.checked=false;
+            }
+        });
+
+    }
+</script>
+
+</html>
